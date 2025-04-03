@@ -1,8 +1,9 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
+"use client"
 
-export default async function Home() {
-  const { getToken } = await auth();
+import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/nextjs";
+
+export default function Home() {
+  const { getToken } = useAuth();
   
   return (
     <main>
