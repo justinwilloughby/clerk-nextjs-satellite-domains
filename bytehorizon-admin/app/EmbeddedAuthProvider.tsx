@@ -4,7 +4,7 @@ import { createContext, useContext, useCallback, useState, useEffect, useRef } f
 
 type PendingRequest = {
   resolve: (value: string) => void;
-  reject: (reason?: any) => void;
+  reject: (reason?: unknown) => void;
   timeout: NodeJS.Timeout;
 };
 
@@ -53,6 +53,9 @@ export function EmbeddedAuthProvider({ children }: { children: React.ReactNode }
       }
     }
 
+    // Store a reference to the current pending requests for cleanup
+    const currentPendingRequests = pendingRequestsRef.current;
+
     // Register message listener
     window.addEventListener('message', handleMessage);
     
@@ -60,8 +63,8 @@ export function EmbeddedAuthProvider({ children }: { children: React.ReactNode }
     return () => {
       window.removeEventListener('message', handleMessage);
       
-      // Clear any pending timeouts
-      Object.values(pendingRequestsRef.current).forEach(request => {
+      // Clear any pending timeouts using the variable captured at effect creation time
+      Object.values(currentPendingRequests).forEach(request => {
         clearTimeout(request.timeout);
       });
     };

@@ -3,7 +3,7 @@
 import { useEmbeddedAuth } from "./EmbeddedAuthProvider";
 
 export default function Home() {
-  const { isLoading, executeAuthenticatedRequest } = useEmbeddedAuth();
+  const { executeAuthenticatedRequest } = useEmbeddedAuth();
   
   return (
     <main>
