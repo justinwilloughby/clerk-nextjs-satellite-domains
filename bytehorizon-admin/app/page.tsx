@@ -12,7 +12,7 @@ export default function Home() {
           console.log("This is admin app", token);
 
           // Call an API that's protected by Clerk
-          const response = await fetch("http://localhost:3000/api/protected", {
+          const response = await fetch("https://www.bytehorizon.xyz/api/protected", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
