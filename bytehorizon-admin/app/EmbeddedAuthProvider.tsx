@@ -27,7 +27,7 @@ export function EmbeddedAuthProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
       // Validate origin
-      if (event.origin !== 'https://bytehorizon.xyz') {
+      if (event.origin !== 'https://www.bytehorizon.xyz') {
         console.warn(`Rejected message from untrusted origin: ${event.origin}`);
         return;
       }
@@ -96,7 +96,7 @@ export function EmbeddedAuthProvider({ children }: { children: React.ReactNode }
         type: 'REQUEST_AUTH_TOKEN',
         id: currentId,
         timestamp: Date.now()
-      }, 'https://bytehorizon.xyz');
+      }, 'https://www.bytehorizon.xyz');
     });
   }, []);
 
