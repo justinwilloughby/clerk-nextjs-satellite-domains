@@ -13,7 +13,7 @@ export default function AdminPage() {
         // Handle messages from the iframe
         async function handleMessage(event: MessageEvent) {
             // Validate origin
-            if (event.origin !== 'http://localhost:3001') {
+            if (event.origin !== 'https://admin.bytehorizon.xyz') {
                 return;
             }
 
@@ -32,7 +32,7 @@ export default function AdminPage() {
                         token,
                         id: event.data.id,
                         timestamp: Date.now()
-                    }, 'http://localhost:3001');
+                    }, 'https://admin.bytehorizon.xyz');
                 }
             }
         }
@@ -53,7 +53,7 @@ export default function AdminPage() {
             }}>Get Token</button>
             <iframe
                 ref={iframeRef}
-                src="http://localhost:3001"
+                src="https://admin.bytehorizon.xyz"
                 title="Admin Panel"
             />
         </div>
