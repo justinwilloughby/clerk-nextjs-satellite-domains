@@ -18,7 +18,7 @@ export default function Home() {
             },
           });
 
-          const data = await response.json();
+          const data = await response.text();
           console.log("Protected API response:", data);
         });
       }}>Execute Authenticated Request</button>

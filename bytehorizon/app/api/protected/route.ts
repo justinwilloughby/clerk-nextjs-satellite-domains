@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { clerkClient } from "@clerk/nextjs/server";
 
 // Define allowed origins
@@ -8,7 +8,7 @@ const allowedOrigins = [
 ];
 
 // CORS headers helper function
-function setCorsHeaders(response: Response, origin: string): Response {
+function setCorsHeaders(response: NextResponse, origin: string): NextResponse {
   const headers = new Headers(response.headers);
   
   if (allowedOrigins.includes(origin)) {
@@ -22,7 +22,7 @@ function setCorsHeaders(response: Response, origin: string): Response {
   headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   headers.set('Access-Control-Max-Age', '86400'); // 24 hours
   
-  return new Response(response.body, {
+  return new NextResponse(response.body, {
     status: response.status,
     statusText: response.statusText,
     headers
@@ -34,7 +34,7 @@ export async function OPTIONS(request: NextRequest) {
   const origin = request.headers.get('origin') || '';
   
   return setCorsHeaders(
-    new Response(null, { status: 204 }), // No content needed for OPTIONS
+    new NextResponse(null, { status: 204 }), // No content needed for OPTIONS
     origin
   );
 }
@@ -47,13 +47,13 @@ export async function GET(request: NextRequest) {
 
     if (requestState.status !== "signed-in") {
         return setCorsHeaders(
-          new Response("Unauthorized", { status: 401 }),
+          new NextResponse("Unauthorized", { status: 401 }),
           origin
         );
     }
 
     return setCorsHeaders(
-      new Response("Hello, world!", { status: 200 }),
+      new NextResponse("Hello, world!", { status: 200 }),
       origin
     );
 }
