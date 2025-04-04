@@ -1,27 +1,27 @@
 "use client"
 
-import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/nextjs";
+import { useEmbeddedAuth } from "./EmbeddedAuthProvider";
 
 export default function Home() {
-  const { getToken } = useAuth();
+  const { isLoading, executeAuthenticatedRequest } = useEmbeddedAuth();
   
   return (
     <main>
-      <SignedIn>
-        <UserButton />
-        <button onClick={async () => {
-          const token = await getToken();
-          console.log(token);
-          const tokenDiv = document.getElementById("token");
-          if (tokenDiv) {
-            tokenDiv.textContent = token;
-          }
-        }}>Get Token</button>
-        <div id="token"></div>
-      </SignedIn>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
+      <button onClick={async () => {
+        await executeAuthenticatedRequest(async (token) => {
+          console.log("This is admin app", token);
+
+          // Call an API that's protected by Clerk
+          const response = await fetch("http://localhost:3000/api/protected", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          const data = await response.json();
+          console.log("Protected API response:", data);
+        });
+      }}>Execute Authenticated Request</button>
     </main>
   );
 }
