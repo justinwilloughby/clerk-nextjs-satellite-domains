@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth, useSession, useClerk } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { useEffect, useRef } from "react";
 
 export default function AdminPage() {
