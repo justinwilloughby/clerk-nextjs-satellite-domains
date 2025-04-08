@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <ClerkProvider allowedRedirectOrigins={[
       // "http://localhost:3001", // For development
-      "https://vaultedge.xyz" // For production
+      "https://www.vaultedge.xyz" // For production
     ]}>
       <html lang="en">
         <body
